@@ -1,25 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View} from "react-native";
+import {AppRegistry, StyleSheet, Text, View, PixelRatio} from "react-native";
 
-class aaa extends Component {
+class Main extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, eeeeeeeedityyyyff index.android.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Shake or press menu button for dev menu
-                </Text>
+                <View style={[styles.item,
+                                styles.center]}>
+                    <Text style={[styles.font]}>酒店</Text>
+                </View>
             </View>
         );
     }
@@ -27,24 +16,41 @@ class aaa extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 200,
+        marginLeft: 5,
+        marginRight: 5,
+        height: 84,
+        flexDirection: 'row',
+        borderRadius: 5,
+        padding: 2,
+        backgroundColor: '#FF0067',
+    },
+    item: {
         flex: 1,
+        height: 80
+    },
+    center: {
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        alignItems: 'center'
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    flex: {
+        flex: 1
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
+    font: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold'
     },
+    lineLeftRight: {
+        borderLeftWidth: 1 / PixelRatio.get(),
+        borderRightWidth: 1 / PixelRatio.get(),
+        borderColor: '#fff'
+    },
+    lineCenter: {
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderColor: '#fff'
+    }
+
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => aaa);
-
-//AppRegistry.registerComponent('AwesomeProject', () => DongFang);
- 
+AppRegistry.registerComponent('AwesomeProject', () => Main); 

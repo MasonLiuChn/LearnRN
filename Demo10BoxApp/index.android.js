@@ -1,67 +1,97 @@
-import {React, Component} from "react";
+import React, {Component} from "react";
 import {AppRegistry, StyleSheet, Text, View} from "react-native";
 
 class Box extends Component {
     render() {
         return (
-            <View style={[BoxStyles.box,BoxStyles[this.props.width],BoxStyles[this.props.height]]}>
-                <View style={[BoxStyles.top,BoxStyles.height50,BoxStyles[this.props.classBg]]}><Text>top</Text></View>
-                <View style={[BoxStyles[this.props.childName]]}>
-                    <View style={[BoxStyles.left,BoxStyles[this.props.classBg]]}><Text>left</Text></View>
-                    {this.props.children}
-                    <View style={[BoxStyles.right,BoxStyles[this.props.classBg]]}><Text>right</Text></View>
+            <View style={[BoxStyles.box,
+                            BoxStyles[this.props.width],
+                            BoxStyles[this.props.height],
+                            BoxStyles[this.props.classBg]]}>
+
+                <View style={[BoxStyles.contentCenter,
+                                BoxStyles.height50]}>
+                    <Text>top</Text>
                 </View>
+
+                <View style={[BoxStyles.boxCenter]}>
+
+                    <View style={[BoxStyles.contentCenter,
+                                BoxStyles.width50]}>
+                        <Text>left</Text>
+                    </View>
+
+                    {this.props.children}
+
+                    <View style={[BoxStyles.contentCenter,
+                                BoxStyles.width50]}>
+                        <Text>right</Text>
+                    </View>
+                </View>
+
                 <View
-                    style={[BoxStyles.bottom,BoxStyles.height50,BoxStyles[this.props.classBg]]}><Text>bottom</Text></View>
-                <View style={[BoxStyles.label]}><Text>{this.props.boxName}</Text></View>
+                    style={[BoxStyles.contentCenter,
+                              BoxStyles.height50]}>
+                    <Text>bottom</Text>
+                </View>
+
+                <View style={[BoxStyles.label]}>
+                    <Text>{this.props.boxName}</Text>
+                </View>
             </View>
         )
     }
 }
 
-class MargginBox extends Component {
+class RedBox extends Component {
     render() {
         return (
-            <View style={[BoxStyles.margginBox]}>
-                <Box childName="borderBox" height="height400" width="width400" boxName="margin"
-                     classBg="bgred">{this.props.children}</Box>
+            <View style={[BoxStyles.redBox]}
+                /* 注释1 */
+            >
+                {/* 注释2 child comment, put {} around */}
+                <Box height="height300" width="width300" boxName="红色"
+                     classBg="bgred">
+                    {this.props.children}
+                </Box>
             </View>
         )
     }
 
 }
 
-
-class BorderBox extends Component {
+class YellowBox extends Component {
     render() {
         return (
-            <Box childName="paddingBox" height="height300" width="width300" boxName="border"
-                 classBg="bggreen">{this.props.children}</Box>
-        )
-    }
-
-}
-
-
-class PaddingBox extends Component {
-    render() {
-        return (
-            <Box childName="elementBox" height="height200" width="width200" boxName="padding"
+            <Box height="height200" width="width200" boxName="黄色"
                  classBg="bgyellow">{this.props.children}</Box>
         )
     }
 }
 
 
-class ElementBox extends Component {
+class GreenBox extends Component {
     render() {
         return (
-            <View style={[BoxStyles.box,BoxStyles.height100]}>
+            <View style={[BoxStyles.box,
+                            BoxStyles.height100,
+                            BoxStyles.bggreen]}>
+
                 <View style={[BoxStyles.measureBox]}>
-                    <View style={[BoxStyles.right]}><Text>height</Text></View>
+                    <View>
+                        <Text>height</Text>
+                    </View>
                 </View>
-                <View style={[BoxStyles.bottom,BoxStyles.height50]}><Text>width</Text></View>
-                <View style={[BoxStyles.label]}><Text>element</Text></View>
+
+                <View style={[BoxStyles.contentCenter,
+                                BoxStyles.height50]}>
+                    <Text>width</Text>
+                </View>
+
+                <View style={[BoxStyles.label]}>
+                    <Text>绿色</Text>
+                </View>
+
                 <View style={[BoxStyles.widthdashed]}></View>
                 <View style={[BoxStyles.heightdashed]}></View>
             </View>
@@ -70,17 +100,16 @@ class ElementBox extends Component {
 }
 
 
-class DongFang extends Component {
+class Main extends Component {
     render() {
         return (
-            <MargginBox>
-                <BorderBox>
-                    <PaddingBox>
-                        <ElementBox>
-                        </ElementBox>
-                    </PaddingBox>
-                </BorderBox>
-            </MargginBox>
+            <RedBox>
+                <YellowBox>
+                    <GreenBox>
+
+                    </GreenBox>
+                </YellowBox>
+            </RedBox>
         )
     }
 }
@@ -89,8 +118,8 @@ const BoxStyles = StyleSheet.create({
     height50: {
         height: 50,
     },
-    height400: {
-        height: 400,
+    width50: {
+        width: 50,
     },
     height300: {
         height: 300,
@@ -100,9 +129,6 @@ const BoxStyles = StyleSheet.create({
     },
     height100: {
         height: 100,
-    },
-    width400: {
-        width: 400,
     },
     width300: {
         width: 300,
@@ -114,45 +140,31 @@ const BoxStyles = StyleSheet.create({
         width: 100,
     },
     bgred: {
-        backgroundColor: '#6AC5AC',
+        backgroundColor: '#DC143C',
     },
     bggreen: {
-        backgroundColor: '#414142',
+        backgroundColor: '#32CD32',
     },
     bgyellow: {
-        backgroundColor: '#D64078',
+        backgroundColor: '#FFD700',
     },
     box: {
         flexDirection: 'column',
-        flex: 1,
-        position: 'relative',
+        flex: 1, //表示该元素是可伸缩的,数值是指在父view中的weight
+        position: 'relative', //positon : ‘absolute’定位方式是相对于父级元素
     },
     label: {
         top: 0,
         left: 0,
-        paddingTop: 0,
+        paddingTop: 3,
         paddingRight: 3,
         paddingBottom: 3,
-        paddingLeft: 0,
+        paddingLeft: 3,
         position: 'absolute',
-        backgroundColor: '#FDC72F',
+        backgroundColor: '#00CED1',
     },
-    top: {
+    contentCenter: {
         justifyContent: 'center',
-        alignItems: 'center',
-    },
-    bottom: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    right: {
-        width: 50,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    left: {
-        width: 50,
-        justifyContent: 'space-around',
         alignItems: 'center',
     },
     heightdashed: {
@@ -167,37 +179,19 @@ const BoxStyles = StyleSheet.create({
         bottom: 25,
         left: 0,
         right: 0,
-        borderTopWidth: 1,
+        top: 74,
         position: 'absolute',
-        borderTopColor: '#FDC72F',
+        backgroundColor: '#FDC72F'
     },
-    yellow: {
-        color: '#FDC72F',
-        fontWeight: '900',
-    },
-    white: {
-        color: 'white',
-        fontWeight: '900',
-    },
-    margginBox: {
+    redBox: {
         position: 'absolute',
         top: 100,
-        paddingLeft: 7,
-        paddingRight: 7,
+        paddingLeft: 5,
+        paddingRight: 5,
     },
-    borderBox: {
+    boxCenter: {
         flex: 1,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-    },
-    paddingBox: {
-        flex: 1,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-    },
-    elementBox: {
-        flex: 1,
-        justifyContent: 'space-between',
+        justifyContent: 'space-between',//首个元素放置于起点，末尾元素放置于终点
         flexDirection: 'row',
     },
     measureBox: {
@@ -206,22 +200,6 @@ const BoxStyles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
     },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => DongFang);
+AppRegistry.registerComponent('AwesomeProject', () => Main);

@@ -31,7 +31,7 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        RNUtil.setJSServer("10.0.2.2:8081", this);
+        RNUtil.setJSServer("10.0.3.2:8081", this);
         RNUtil.setAutoReloadOnJsChange(true,this);
         super.onCreate(savedInstanceState);
     }
