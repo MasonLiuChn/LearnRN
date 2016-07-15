@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 cd `dirname $0`
-cp -rf index.android.js ../MainProject/index.android.js
+rm -rf ../MainProject/*.js
+cp -rf *.js ../MainProject
 echo " "   >> ../MainProject/index.android.js
