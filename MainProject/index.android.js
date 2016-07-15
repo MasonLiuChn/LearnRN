@@ -4,50 +4,97 @@ const Header = require('./header')
 class Main extends Component {
     render() {
         return (
-            <Header>
-                
-            </Header>
+            <View>
+                <Header></Header>
+                <List title="dddddd"></List>
+                <List title="dddddd"></List>
+                <List title="dddddd"></List>
+                <List title="dddddd"></List>
+
+                <ImportantNews
+                    news={[
+                    '11111',
+                    '11111',
+                    '11111',
+                    '11111',
+                    ]}>
+                </ImportantNews>
+            </View>
         );
     }
 }
 
+class List extends Component {
+    render() {
+        return (
+            <View style={styles.list_item}>
+                <Text style={styles.list_item_font}>
+                    {this.props.title}
+                </Text>
+            </View>
+        );
+    }
+}
+
+
+class ImportantNews extends Component {
+    show(title) {
+        alert(title);
+    }
+
+    render() {
+        var news = [];
+
+        for (i in this.props.news) {
+            var text = (
+                <Text onPress={this.show.bind(this,this.props.news[i])}
+                      style={styles.news_item}
+                      numberOfLines={2}
+                      key={i}>
+                    {this.props.news[i]}
+                </Text>
+            )
+            news.push(text)
+        }
+
+        return (
+            <View>
+                <Text style={styles.news_title}>今日要闻</Text>
+                {news}
+            </View>
+        );
+    }
+}
+
+
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 200,
-        marginLeft: 5,
-        marginRight: 5,
-        height: 84,
-        flexDirection: 'row',
-        borderRadius: 5,
-        padding: 2,
-        backgroundColor: '#FF0067',
-    },
-    item: {
-        flex: 1,
-        height: 80
-    },
-    center: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     flex: {
         flex: 1
     },
-    font: {
-        color: '#fff',
+    list_item: {
+        height: 40,
+        marginLeft: 10,
+        marginRight: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        justifyContent: 'center'
+    },
+    list_item_font: {
         fontSize: 16,
-        fontWeight: 'bold'
     },
-    lineLeftRight: {
-        borderLeftWidth: 1 / PixelRatio.get(),
-        borderRightWidth: 1 / PixelRatio.get(),
-        borderColor: '#fff'
+    news_title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#CD1D1C',
+        marginLeft: 10,
+        marginTop: 15,
     },
-    lineCenter: {
-        borderBottomWidth: 1 / PixelRatio.get(),
-        borderColor: '#fff'
-    }
-
+    news_item: {
+        fontSize: 15,
+        marginLeft: 10,
+        marginRight: 10,
+        lineHeight: 30
+    },
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => Main); 

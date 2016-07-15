@@ -17,11 +17,12 @@ class Header extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'row',//默认 column
         marginTop: 25,
         height: 50,
         borderBottomWidth: 3 / PixelRatio.get(),
         borderBottomColor: '#EF2D36',
-        alignItems: 'center'
+        justifyContent: 'center'//主轴方向
     },
     font: {
         fontSize: 25,
