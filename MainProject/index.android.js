@@ -9,6 +9,33 @@ class Main extends Component {
                                 styles.center]}>
                     <Text style={[styles.font]}>酒店</Text>
                 </View>
+
+
+                <View style={[styles.item,
+                                styles.lineLeftRight]}>
+                    <View style={[styles.flex,
+                                styles.center,
+                                styles.lineCenter]}>
+                        <Text style={[styles.font]}>海外酒店</Text>
+                    </View>
+                    <View style={[styles.flex,
+                                styles.center]}>
+                        <Text style={[styles.font]}>特惠酒店</Text>
+                    </View>
+                </View>
+
+
+                <View style={[styles.item]}>
+                    <View style={[styles.flex,
+                                styles.center,
+                                styles.lineCenter]}>
+                        <Text style={[styles.font]}>团购</Text>
+                    </View>
+                    <View style={[styles.flex,
+                                styles.center]}>
+                        <Text style={[styles.font]}>公寓</Text>
+                    </View>
+                </View>
             </View>
         );
     }
