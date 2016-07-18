@@ -1,67 +1,92 @@
 import React, {Component} from "react";
-import {AppRegistry, StyleSheet, Text, View, PixelRatio} from "react-native";
-const Header = require('./header')
+import {AppRegistry, StyleSheet, Text, View, PixelRatio, Navigator, ScrollView} from "react-native";
+
 class Main extends Component {
     render() {
+        let defaultName = 'List';
+        let defaultComponent = List;
         return (
-            <View>
-                <Header></Header>
-                <List title="dddddd"></List>
-                <List title="dddddd"></List>
-                <List title="dddddd"></List>
-                <List title="dddddd"></List>
-
-                <ImportantNews
-                    news={[
-                    '11111',
-                    '22222',
-                    '33333',
-                    '44444',
-                    ]}>
-                </ImportantNews>
-            </View>
+            <Navigator
+                initialRoute={{name:defaultName,component:defaultComponent}}
+                configureScene={
+                    (route)=>{
+                        return Navigator.SceneConfigs.VerticalDownSwipeJump;
+                    }
+                }
+                renderScene={
+                    (route,navigator)=>{
+                        let Component = route.component;
+                        //return <Component navigator={navigator}/>
+                        return <Component {...route.params} navigator={navigator}/>
+                    }
+                }
+            />
         );
     }
 }
 
 class List extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    _pressButton() {
+        //const {navigator} = this.props;
+        const navigator = this.props.navigator;
+        if (navigator) {
+            navigator.push({
+                name: 'Detail',
+                component: Detail,
+            })
+        }
+    }
+
     render() {
         return (
-            <View style={styles.list_item}>
-                <Text style={styles.list_item_font}>
-                    {this.props.title}
+            <ScrollView style={styles.flex}>
+                <Text style={styles.list_item}
+                      onPress={this._pressButton.bind(this)}
+                >
+                    1111111111111111
                 </Text>
-            </View>
+                <Text style={styles.list_item}
+                      onPress={this._pressButton.bind(this)}
+                >
+                    2222222222222222
+                </Text>
+                <Text style={styles.list_item}
+                      onPress={this._pressButton.bind(this)}
+                >
+                    33333333333333333
+                </Text>
+            </ScrollView>
         );
     }
 }
 
 
-class ImportantNews extends Component {
-    show(title) {
-        alert(title);
+class Detail extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {};
+    // }
+
+    _pressButton() {
+        const {navigator} = this.props;
+        if (navigator) {
+            navigator.pop();
+        }
     }
 
     render() {
-        var news = [];
-
-        for (i in this.props.news) {
-            var text = (
-                <Text onPress={this.show.bind(this,this.props.news[i])}
-                      style={styles.news_item}
-                      numberOfLines={2}
-                      key={i}>
-                    {this.props.news[i]}
-                </Text>
-            )
-            news.push(text)
-        }
-
         return (
-            <View>
-                <Text style={styles.news_title}>今日要闻</Text>
-                {news}
-            </View>
+            <ScrollView style={styles.flex}>
+                <Text style={styles.list_item}
+                      onPress={this._pressButton.bind(this)}>
+                    点我返回
+                </Text>
+            </ScrollView>
         );
     }
 }
@@ -75,26 +100,11 @@ const styles = StyleSheet.create({
         height: 40,
         marginLeft: 10,
         marginRight: 10,
+        fontSize: 20,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         justifyContent: 'center'
     },
-    list_item_font: {
-        fontSize: 16,
-    },
-    news_title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#CD1D1C',
-        marginLeft: 10,
-        marginTop: 15,
-    },
-    news_item: {
-        fontSize: 15,
-        marginLeft: 10,
-        marginRight: 10,
-        lineHeight: 30
-    },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => Main); 
+AppRegistry.registerComponent('AwesomeProject', () =>Main); 
