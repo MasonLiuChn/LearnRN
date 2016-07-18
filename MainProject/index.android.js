@@ -14,9 +14,9 @@ class Main extends Component {
                 <ImportantNews
                     news={[
                     '11111',
-                    '11111',
-                    '11111',
-                    '11111',
+                    '22222',
+                    '33333',
+                    '44444',
                     ]}>
                 </ImportantNews>
             </View>
