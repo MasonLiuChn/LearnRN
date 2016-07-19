@@ -29,51 +29,86 @@ class Main extends Component {
 class List extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            author: 'admin'
+        };
     }
 
     _pressButton() {
         //const {navigator} = this.props;
         const navigator = this.props.navigator;
+        const self = this;
         if (navigator) {
             navigator.push({
+                //下边这些属性都放在route里
                 name: 'Detail',
                 component: Detail,
+                params: {
+                    author: this.state.author,
+                    getUser: function (user) {
+                        self.setState({
+                            user: user
+                        })
+                    }
+                }
             })
         }
     }
 
     render() {
-        return (
-            <ScrollView style={styles.flex}>
-                <Text style={styles.list_item}
-                      onPress={this._pressButton.bind(this)}
-                >
-                    1111111111111111
-                </Text>
-                <Text style={styles.list_item}
-                      onPress={this._pressButton.bind(this)}
-                >
-                    2222222222222222
-                </Text>
-                <Text style={styles.list_item}
-                      onPress={this._pressButton.bind(this)}
-                >
-                    33333333333333333
-                </Text>
-            </ScrollView>
-        );
+        if (this.state.user) {
+            return (
+                <View>
+                    <Text style={styles.list_item}>
+                        {JSON.stringify(this.state.user)}
+                    </Text>
+                </View>
+            );
+        } else {
+            return (
+                <ScrollView style={styles.flex}>
+                    <Text style={styles.list_item}
+                          onPress={this._pressButton.bind(this)}>
+                        1111111111111111
+                    </Text>
+                    <Text style={styles.list_item}
+                          onPress={this._pressButton.bind(this)}>
+                        2222222222222222
+                    </Text>
+                    <Text style={styles.list_item}
+                          onPress={this._pressButton.bind(this)}>
+                        33333333333333333
+                    </Text>
+                </ScrollView>
+            );
+        }
     }
 }
 
+const USER_MODELS = {
+    admin: {name: 'aaa', age: 23},
+    admin2: {name: 'bbb', age: 25}
+}
 
 class Detail extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {};
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {};//this.state 必须在这里初始化
+    }
+
+    componentDidMount() {
+        this.setState({
+            author: this.props.author
+        })
+    }
 
     _pressButton() {
+        if (this.props.getUser) {
+            let user = USER_MODELS[this.state.author]
+            this.props.getUser(user)
+        }
+
+
         const {navigator} = this.props;
         if (navigator) {
             navigator.pop();
@@ -85,7 +120,7 @@ class Detail extends Component {
             <ScrollView style={styles.flex}>
                 <Text style={styles.list_item}
                       onPress={this._pressButton.bind(this)}>
-                    点我返回
+                    点我返回{this.state.author}
                 </Text>
             </ScrollView>
         );
