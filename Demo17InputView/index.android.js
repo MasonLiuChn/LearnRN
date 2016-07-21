@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
     },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () =>Main); 
+AppRegistry.registerComponent('AwesomeProject', () =>Main);
